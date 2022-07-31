@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
 });
 
 const client = new Client({
-  authStrategy: new LocalAuth({ clientId: 'bot-zdg-server' }),
+  authStrategy: new LocalAuth({ clientId: 'bot-whatsapp-server' }),
   puppeteer: { headless: true,
     args: [
       '--no-sandbox',
@@ -43,22 +43,22 @@ const client = new Client({
 client.initialize();
 
 io.on('connection', function(socket) {
-  socket.emit('message', '© BOT-ZDG - Iniciado');
+  socket.emit('message', '© BOT-LUCAS - Iniciado');
   socket.emit('qr', './icon.svg');
 
 client.on('qr', (qr) => {
     console.log('QR RECEIVED', qr);
     qrcode.toDataURL(qr, (err, url) => {
       socket.emit('qr', url);
-      socket.emit('message', '© BOT-ZDG QRCode recebido, aponte a câmera seu celular!');
+      socket.emit('message', '© BOT-LUCAS QRCode recebido, aponte a câmera seu celular!');
     });
 });
 
 client.on('ready', () => {
-    socket.emit('ready', '© BOT-ZDG Dispositivo pronto!');
-    socket.emit('message', '© BOT-ZDG Dispositivo pronto!');
+    socket.emit('ready', '© BOT-LUCAS Dispositivo pronto!');
+    socket.emit('message', '© BOT-LUCAS Dispositivo pronto!');
     socket.emit('qr', './check.svg')	
-    console.log('© BOT-ZDG Dispositivo pronto');
+    console.log('© BOT-LUCAS Dispositivo pronto');
 });
 
 client.on('authenticated', () => {
@@ -69,16 +69,16 @@ client.on('authenticated', () => {
 
 client.on('auth_failure', function() {
     socket.emit('message', '© BOT-ZDG Falha na autenticação, reiniciando...');
-    console.error('© BOT-ZDG Falha na autenticação');
+    console.error('© BOT-LUCAS Falha na autenticação');
 });
 
 client.on('change_state', state => {
-  console.log('© BOT-ZDG Status de conexão: ', state );
+  console.log('© BOT-LUCAS Status de conexão: ', state );
 });
 
 client.on('disconnected', (reason) => {
   socket.emit('message', '© BOT-ZDG Cliente desconectado!');
-  console.log('© BOT-ZDG Cliente desconectado', reason);
+  console.log('© BOT-LUCAS Cliente desconectado', reason);
   client.initialize();
 });
 });
@@ -86,24 +86,25 @@ client.on('disconnected', (reason) => {
 
 client.on('message', async msg => {
 
-  const mediaPath = MessageMedia.fromFilePath('./jegue.ogg');
-  const mediaPath1 = MessageMedia.fromFilePath('./biquini.jpg');
-  const mediaPath2 = MessageMedia.fromFilePath('./nude.jpg');
+  const mediaPath = MessageMedia.fromFilePath('./saiba-mais.ogg');
+  const mediaPath1 = MessageMedia.fromFilePath('./lucas.png');
 
   if (msg.body === 'lucas-bot') {
-    let sections = [{title:'Olá bem vindo!',rows:[{title:'Agende o seu horário', description: 'você será redirecionado'},{title:'Foto de biquini', description: 'Eu quero'},{title:'Manda nude', description: 'Só se for agora'}]}];
-    let list = new List('Tá na seca? Prazer meu nome é água.','1 copo 1/2 cheio',sections,'😻 Baba baby!','© Comunidade ZDG');
+    let sections = [{title:'Olá bem vindo!',rows:[{title:'Agende o seu horário', description: 'Você vai ser direcionado para uma irá escolher o melhor horário para você'},{title:'Onde fica?', description: 'Enviaremos a localização e as informações adicionais'},{title:'Quero saber mais como é o seu negócio', description: 'Enviarei um áudio de como trabalhamos aqui'}]}];
+    let list = new List('Bem vindo!!','Quero começar uma seção',sections,'📅 Agenda!','© BOT-LUCAS');
     client.sendMessage(msg.from, list);
   }
-  if (msg.body.includes('Ouça minha voz')) {
+  if (msg.body.includes('Quero saber mais como é o seu negócio')) {
     client.sendMessage(msg.from, mediaPath, {sendAudioAsVoice: true});
   }
-  if (msg.body.includes('Foto de biquini')) {
-    client.sendMessage(msg.from, mediaPath1, {caption: '🥰 Pedaço de mal caminho'});
+  if (msg.body.includes('Onde fica?')) {
+    client.sendMessage(msg.from, "Nós nos localizamos aqui: https://www.google.com/");
   }
-  if (msg.body.includes('Manda nude')) {
-    client.sendMessage(msg.from, mediaPath2, {caption: '👿 Vem neném que aqui é Furacão 2000'});
+  if (msg.body.includes('Agende o seu horário')) {
+    client.sendMessage(msg.from, mediaPath, {sendAudioAsVoice: true});
+    client.sendMessage(msg.from, mediaPath1, {caption: 'Esse sou eu ❤'});
   }
+ 
 
 });
 
