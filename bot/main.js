@@ -62,13 +62,13 @@ client.on('ready', () => {
 });
 
 client.on('authenticated', () => {
-    socket.emit('authenticated', '© BOT-ZDG Autenticado!');
-    socket.emit('message', '© BOT-ZDG Autenticado!');
-    console.log('© BOT-ZDG Autenticado');
+    socket.emit('authenticated', '© BOT-LUCAS Autenticado!');
+    socket.emit('message', '© BOT-LUCAS Autenticado!');
+    console.log('© BOT-LUCAS Autenticado');
 });
 
 client.on('auth_failure', function() {
-    socket.emit('message', '© BOT-ZDG Falha na autenticação, reiniciando...');
+    socket.emit('message', '© BOT-LUCAS Falha na autenticação, reiniciando...');
     console.error('© BOT-LUCAS Falha na autenticação');
 });
 
@@ -77,7 +77,7 @@ client.on('change_state', state => {
 });
 
 client.on('disconnected', (reason) => {
-  socket.emit('message', '© BOT-ZDG Cliente desconectado!');
+  socket.emit('message', '© BOT-LUCAS Cliente desconectado!');
   console.log('© BOT-LUCAS Cliente desconectado', reason);
   client.initialize();
 });
@@ -89,23 +89,24 @@ client.on('message', async msg => {
   const mediaPath = MessageMedia.fromFilePath('./saiba-mais.ogg');
   const mediaPath1 = MessageMedia.fromFilePath('./lucas.png');
 
-  if (msg.body === 'lucas-bot') {
-    let sections = [{title:'Olá bem vindo!',rows:[{title:'Agende o seu horário', description: 'Você vai ser direcionado para uma irá escolher o melhor horário para você'},{title:'Onde fica?', description: 'Enviaremos a localização e as informações adicionais'},{title:'Quero saber mais como é o seu negócio', description: 'Enviarei um áudio de como trabalhamos aqui'}]}];
-    let list = new List('Bem vindo!!','Quero começar uma seção',sections,'📅 Agenda!','© BOT-LUCAS');
+  if (msg.body === 'Olá, tudo bem?') {
+    let sections = [{title:'Olá, seja bem vinda!',rows:[
+      {title:'Me manda um áudio', description: 'Você vai ser direcionado para conversar com uns de nossos especialistas'},
+      {title:'Onde fica?', description: 'Enviaremos a localização e as informações adicionais'},
+      {title:'Me manda foto', description: 'Enviarei mais informações de como trabalhamos aqui'}
+    ]}];
+    let list = new List('Bem vinda!!','Quero começar uma seção!',sections,'📅 Agenda!','©LUCAS');
     client.sendMessage(msg.from, list);
   }
-  if (msg.body.includes('Quero saber mais como é o seu negócio')) {
+  if (msg.body.includes('Me manda um áudio')) {
     client.sendMessage(msg.from, mediaPath, {sendAudioAsVoice: true});
   }
   if (msg.body.includes('Onde fica?')) {
     client.sendMessage(msg.from, "Nós nos localizamos aqui: https://www.google.com/");
   }
-  if (msg.body.includes('Agende o seu horário')) {
-    client.sendMessage(msg.from, mediaPath, {sendAudioAsVoice: true});
+  if (msg.body.includes('Me manda foto')) {
     client.sendMessage(msg.from, mediaPath1, {caption: 'Esse sou eu ❤'});
   }
- 
-
 });
 
     
