@@ -83,11 +83,10 @@ client.on('disconnected', (reason) => {
 });
 });
 
-
 client.on('message', async msg => {
 
-  const mediaPath = MessageMedia.fromFilePath('./saiba-mais.ogg');
-  const mediaPath1 = MessageMedia.fromFilePath('./lucas.png');
+  const mediaPath = MessageMedia.fromFilePath('./src/saiba-mais.ogg');
+  const mediaPath1 = MessageMedia.fromFilePath('./src/lucas.png');
 
   if (msg.body === 'Olá, tudo bem?') {
     let sections = [{title:'Olá, seja bem vinda!',rows:[
