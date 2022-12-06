@@ -88,32 +88,17 @@ client.on('message', async msg => {
   const mediaPath = MessageMedia.fromFilePath('./src/saiba-mais.ogg');
   const mediaPath1 = MessageMedia.fromFilePath('./src/lucas.png');
 
-  if (msg.body === 'Olá, tudo bem?') {
-    let sections = [{title:'Olá, seja bem vinda!',rows:[
-      {title:'Me manda um áudio', description: 'Você vai ser direcionado para conversar com uns de nossos especialistas'},
-      {title:'Onde fica?', description: 'Enviaremos a localização e as informações adicionais'},
-      {title:'Me manda foto', description: 'Enviarei mais informações de como trabalhamos aqui'}
-    ]}];
-    let list = new List('Bem vinda!!','Quero começar uma seção!',sections,'📅 Agenda!','©LUCAS');
-    client.sendMessage(msg.from, list);
-  }
-  if (msg.body.includes('Me manda um áudio')) {
+  if (msg.body.includes('áudio') || msg.body.includes('audio')) {
     client.sendMessage(msg.from, mediaPath, {sendAudioAsVoice: true});
   }
-  if (msg.body.includes('Onde fica?')) {
+  if (msg.body.includes('mensagem')) {
     client.sendMessage(msg.from, "Nós nos localizamos aqui: https://www.google.com/");
   }
-  if (msg.body.includes('Me manda foto')) {
+  if (msg.body.includes('foto') || msg.body.includes('Foto')) {
     client.sendMessage(msg.from, mediaPath1, {caption: 'Esse sou eu ❤'});
   }
 });
-
     
 server.listen(port, function() {
         console.log('App running on *: ' + port);
 });
-
-
-// ESTRATÉGIA ZAP DAS GALÁXIAS
-// ZDG © 2020
-// www.zapdasgalaxias.com.br  

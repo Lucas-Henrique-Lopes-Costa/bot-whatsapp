@@ -4,8 +4,8 @@
   "description": "bot-whatsapp: based on Whatsapp API",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "start:dev": "nodemon app.js",
+    "start": "node main.js",
+    "start:dev": "nodemon main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -25,7 +25,7 @@
     "request": "^2.88.2",
     "socket.io": "^2.5.0",
     "util": "^0.12.4",
-    "whatsapp-web.js": "^1.17.1"
+    "whatsapp-web.js": "^1.18.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.14"
